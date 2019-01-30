@@ -6,7 +6,10 @@ Download the IC file from
 
 https://www.ics.uzh.ch/~aurel/euclidIC_2048/
 
-(need a conversion)
+Too for conversion:
+(needs nbodykit)
+
+https://github.com/rainwoodman/fastpm/blob/master/python/convert-from-gadget-1.py
 
 From Aurel site:
 
