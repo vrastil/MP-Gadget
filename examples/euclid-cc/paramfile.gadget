@@ -4,7 +4,7 @@ OutputDir = output
 OutputList = 0.0, 0.3333
 
 # Mesh size (in general should be set to 2xNgrid in IC)
-Nmesh = 128
+Nmesh = 256
 
 # CPU time -limit
 TimeLimitCPU = 43000 #= 8 hours
