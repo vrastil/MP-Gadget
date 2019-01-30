@@ -17,6 +17,7 @@ Omega0 = 0.3071      # Total matter density  (at z=0)
 OmegaLambda = 0.6929  # Cosmological constant (at z=0)
 OmegaBaryon = 0.0483     # Baryon density        (at z=0)
 HubbleParam = 0.6777      # Hubble paramater (may be used for power spec parameterization)
+IncludeRadiation = 0
 
 CoolingOn = 0
 StarformationOn = 0
