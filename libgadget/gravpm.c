@@ -85,9 +85,9 @@ void gravpm_force(ForceTree * tree) {
     powerspectrum_sum(&PowerSpectrum, All.BoxSize*All.UnitLength_in_cm);
     /*Now save the power spectrum*/
     if(ThisTask == 0)
-        powerspectrum_save(&PowerSpectrum, All.OutputDir, "powerspectrum", All.Time, GrowthFactor(All.Time, 1.0));
+        powerspectrum_save(&PowerSpectrum, All.PowerSpectrumDir, "powerspectrum", All.Time, GrowthFactor(All.Time, 1.0));
     if(ThisTask == 0 && All.MassiveNuLinRespOn)
-        powerspectrum_nu_save(&PowerSpectrum, All.OutputDir, "powerspectrum-nu", All.Time);
+        powerspectrum_nu_save(&PowerSpectrum, All.PowerSpectrumDir, "powerspectrum-nu", All.Time);
     /*We are done with the power spectrum, free it*/
     powerspectrum_free(&PowerSpectrum, All.MassiveNuLinRespOn);
     walltime_measure("/LongRange");

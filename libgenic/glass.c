@@ -143,7 +143,7 @@ void glass_evolve(int nsteps, char * pkoutname, struct ic_part_data * ICP, const
 
         /*Now save the power spectrum*/
         if(ThisTask == 0) {
-            powerspectrum_save(&PowerSpectrum, All.OutputDir, pkoutname, t_f, 1.0);
+            powerspectrum_save(&PowerSpectrum, All.PowerSpectrumDir, pkoutname, t_f, 1.0);
         }
     }
 

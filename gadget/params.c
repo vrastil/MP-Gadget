@@ -3,6 +3,10 @@
 #include <string.h>
 #include <math.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <libgadget/allvars.h>
 #include <libgadget/densitykernel.h>
 #include <libgadget/timebinmgr.h>
@@ -109,6 +113,7 @@ create_gadget_parameter_set()
     } ;
     param_declare_enum(ps,    "DensityKernelType", DensityKernelTypeEnum, OPTIONAL, "quintic", "SPH density kernel to use. Supported values are cubic, quartic and quintic.");
     param_declare_string(ps, "SnapshotFileBase", OPTIONAL, "PART", "Base name of the snapshot files, _%03d will be appended to the name.");
+    param_declare_string(ps, "PowerSpectrumDir", OPTIONAL, "powerspectrum", "Prefix to the power spectrum output");
     param_declare_string(ps, "FOFFileBase", OPTIONAL, "PIG", "Base name of the fof files, _%03d will be appended to the name.");
     param_declare_string(ps, "EnergyFile", OPTIONAL, "energy.txt", "File to output energy statistics.");
     param_declare_int(ps,    "OutputEnergyDebug", OPTIONAL, 0, "Should we output energy statistics to energy.txt");
@@ -371,6 +376,20 @@ void read_parameter_file(char *fname)
         param_get_string2(ps, "EnergyFile", All.EnergyFile, sizeof(All.EnergyFile));
         All.OutputEnergyDebug = param_get_int(ps, "EnergyFile");
         param_get_string2(ps, "CpuFile", All.CpuFile, sizeof(All.CpuFile));
+
+        // power spectrum dir
+        size_t len = strlen(All.OutputDir) + 1;
+        if (len < sizeof(All.PowerSpectrumDir))
+        {
+            strcpy(All.PowerSpectrumDir, All.OutputDir);
+            All.PowerSpectrumDir[len - 1] = '/';
+        }
+        param_get_string2(ps, "PowerSpectrumDir", All.PowerSpectrumDir + len, sizeof(All.PowerSpectrumDir) - len);
+        struct stat st = {0};
+        if (stat(All.PowerSpectrumDir, &st) == -1)
+        {
+            mkdir(All.PowerSpectrumDir, 0700);
+        }
 
         All.DensityKernelType = param_get_enum(ps, "DensityKernelType");
         All.CP.CMBTemperature = param_get_double(ps, "CMBTemperature");
